@@ -8,12 +8,6 @@ public class User {
     
     private double saldo = 0;
 
-    public enum UserType {
-        USUARIO,
-        ASSINANTE,
-        ASSINANTE_PREMIUM
-    }
-
     public User(String nome, String email, String senha, UserType tipo) {
         this.nome = nome;
         this.email = email;
