@@ -32,23 +32,22 @@ public class UsuarioAssinaturaTeste {
 
 	//BDD - Raul
 	@Test
-	public void deveNaoRealizarAssinaturaCasoSaldoInsuficiente(){
+	public void naoDeveRealizarAssinaturaCasoSaldoInsuficiente(){
 		// Cenários
 		School escolaOnline = new School("Escola de Programação do Deaque");
 		Plan planoBasico = new Plan("Plano básico de programação", UserType.ASSINANTE, 200);	
 		User joao = new User("João Perinpinpin", "jperinpinpin@gpin.com", "senha123");
-		UserType atualTipoUsuario = joao.getTipo();
 
 		// Execução
-		escolaOnline.adicionaPlano(planoBasico);
+		escolaOnline.adicionarPlano(planoBasico);
 		joao.adicionarSaldo(30);
 		
-		String mensagemRetorno = joao.assinaPlano(planoBasico);
+		String mensagemRetorno = joao.assinarPlano(planoBasico);
 		
 		// Resultados
-		assertEquals(atualTipoUsuario, joao.getTipo());
+		assertEquals(UserType.USUARIO, joao.getTipo());
 		assertEquals("Usuário não tem saldo suficiente para assinatura do plano.", mensagemRetorno);
-		assertEquals(30, joao.getSaldo());
+		assertEquals(30.0, joao.getSaldo(),0.00001);
 	}
 	
 	//BDD - Ferraz
@@ -60,20 +59,21 @@ public class UsuarioAssinaturaTeste {
 		School escolaOnline = new School("Escola de Programação do Deaque");
 		Plan planoBasico = new Plan("Plano básico de programação", UserType.ASSINANTE, 23.90);	
 		User ze = new User("Zezin", "ze@ze.com", "senha123");
-		joao.adicionarSaldo(50);
-		double saldoAtualUsuario = joao.getSaldo();
+		
+		ze.adicionarSaldo(50);
+		double saldoAtualUsuario = ze.getSaldo();
 		String mensagemRetorno = "";
 		
 		// Execução
-		escolaOnline.adicionaPlano(planoBasico);
-		mensagemRetorno = joao.assinaPlano(planoBasico);
+		escolaOnline.adicionarPlano(planoBasico);
+		mensagemRetorno = ze.assinarPlano(planoBasico);
 		
-		escolaOnline.adicionaPlano(planoBasico);
-		mensagemRetorno = joao.assinaPlano(planoBasico);
+		escolaOnline.adicionarPlano(planoBasico);
+		mensagemRetorno = ze.assinarPlano(planoBasico);
 
 		// Resultados
 		assertEquals("Usuário já pagou o boleto desde mês, favor aguardar a proxima parcela.", mensagemRetorno);
-		assertEquals(saldoAtualUsuario - planoBasico.Valor, joao.getSaldo());
+		assertEquals(saldoAtualUsuario - planoBasico.getValor(), ze.getSaldo(),0.00001);
 	}
 
 	//BDD - Gabriel Nogueira

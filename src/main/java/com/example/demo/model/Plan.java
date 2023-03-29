@@ -28,6 +28,10 @@ public class Plan {
         this.cursos = cursos;
     }
     
+    public Double getValor() {
+    	return this.preco;
+    }
+    
     public void adicionarCurso(Course curso) {
         // verifica se a lista de cursos já foi inicializada
         if (cursos == null) {

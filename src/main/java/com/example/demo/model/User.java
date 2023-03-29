@@ -55,8 +55,8 @@ public class User {
         this.saldo += saldo;
     }
     
-    public void assinarPlano(Plan plano) {
-    	
+    public String assinarPlano(Plan plano) {
+    	return null;
     }
 
 	public String[] getCatalogoCursos() {
