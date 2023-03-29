@@ -8,11 +8,10 @@ public class User {
     
     private double saldo = 0;
 
-    public User(String nome, String email, String senha, UserType tipo) {
+    public User(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.tipo = tipo;
     }
 
     // getters e setters
@@ -55,4 +54,13 @@ public class User {
     public void adicionarSaldo(double saldo) {
         this.saldo += saldo;
     }
+    
+    public void assinarPlano(Plan plano) {
+    	
+    }
+
+	public String[] getCatalogoCursos() {
+		String[] userCatalogoCursos = new String[0];
+		return userCatalogoCursos;
+	}
 }
