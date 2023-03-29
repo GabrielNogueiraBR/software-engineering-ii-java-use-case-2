@@ -4,9 +4,9 @@ public class User {
     private String nome;
     private String email;
     private String senha;
-    private UserType tipo;
-    
     private double saldo = 0;
+    
+    private Role nivel_acesso = Role.USUARIO;
 
     public User(String nome, String email, String senha) {
         this.nome = nome;
@@ -38,14 +38,6 @@ public class User {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
-    public UserType getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(UserType tipo) {
-        this.tipo = tipo;
-    }
     
     public double getSaldo() {
         return saldo;
@@ -55,8 +47,31 @@ public class User {
         this.saldo += saldo;
     }
     
+    public void removerSaldo(double saldo) {
+    	this.saldo -= saldo;
+    }
+    
+    public Role getRole() {
+    	return this.nivel_acesso;
+    }
+    
     public String assinarPlano(Plan plano) {
-    	return null;
+       	
+    	double planPrice = plano.getValor();
+    	Role planRole = plano.getRole();
+    	
+    	int plaRoleIndex = planRole.ordinal();
+    	int userRoleIndex = this.nivel_acesso.ordinal();
+    	
+    	if(userRoleIndex >= plaRoleIndex) return "Usuário já possui a assinatura da plataforma.";
+    	
+    	if(this.saldo < planPrice) 
+    		return "Usuário não tem saldo suficiente para assinatura do plano.";
+    	
+    	this.removerSaldo(planPrice);
+    	this.nivel_acesso = planRole;
+    	
+    	return "Plano assinado com sucesso.";
     }
 
 	public String[] getCatalogoCursos() {

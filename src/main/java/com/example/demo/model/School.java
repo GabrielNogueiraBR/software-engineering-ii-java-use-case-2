@@ -1,8 +1,11 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class School {
     private String nome;
-    private Plan[] planos = new Plan[0];
+    private List<Plan> planos = new ArrayList<Plan>();
 
     public School(String nome) {
         this.nome = nome;
@@ -16,11 +19,11 @@ public class School {
         this.nome = nome;
     }
 
-    public Plan[] getPlanos() {
+    public List<Plan> getPlanos() {
         return planos;
     }
 
     public void adicionarPlano(Plan plano) {
-        
+        planos.add(plano);
     }
 }

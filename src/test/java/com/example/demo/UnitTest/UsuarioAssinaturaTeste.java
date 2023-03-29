@@ -10,7 +10,7 @@ import com.example.demo.model.User;
 import com.example.demo.model.Course;
 import com.example.demo.model.Plan;
 import com.example.demo.model.School;
-import com.example.demo.model.UserType;
+import com.example.demo.model.Role;
 
 public class UsuarioAssinaturaTeste {
 
@@ -19,7 +19,7 @@ public class UsuarioAssinaturaTeste {
 	public void deveLiberarAcessoAoUsuario() {
 		// Cenários
 		School escolaOnline = new School("Escola de Programação do Deaque");
-		Plan planoBasico = new Plan("Plano básico de programação", UserType.ASSINANTE, 23.90);	
+		Plan planoBasico = new Plan("Plano básico de programação", Role.ASSINANTE, 23.90);	
 		User joao = new User("João Perinpinpin", "jperinpinpin@gpin.com", "senha123");
 		
 		// Execução
@@ -28,7 +28,7 @@ public class UsuarioAssinaturaTeste {
 		joao.assinarPlano(planoBasico);
 		
 		// Resultados
-		assertEquals(UserType.ASSINANTE,joao.getTipo());
+		assertEquals(Role.ASSINANTE, joao.getRole());
 	}
 
 	//BDD - Raul
@@ -36,7 +36,7 @@ public class UsuarioAssinaturaTeste {
 	public void naoDeveRealizarAssinaturaCasoSaldoInsuficiente(){
 		// Cenários
 		School escolaOnline = new School("Escola de Programação do Deaque");
-		Plan planoBasico = new Plan("Plano básico de programação", UserType.ASSINANTE, 200);	
+		Plan planoBasico = new Plan("Plano básico de programação", Role.ASSINANTE, 200);	
 		User joao = new User("João Perinpinpin", "jperinpinpin@gpin.com", "senha123");
 
 		// Execução
@@ -46,7 +46,7 @@ public class UsuarioAssinaturaTeste {
 		String mensagemRetorno = joao.assinarPlano(planoBasico);
 		
 		// Resultados
-		assertEquals(UserType.USUARIO, joao.getTipo());
+		assertEquals(Role.USUARIO, joao.getRole());
 		assertEquals("Usuário não tem saldo suficiente para assinatura do plano.", mensagemRetorno);
 		assertEquals(30.0, joao.getSaldo(),0.00001);
 	}
@@ -58,7 +58,7 @@ public class UsuarioAssinaturaTeste {
 
 		// Cenários
 		School escolaOnline = new School("Escola de Programação do Deaque");
-		Plan planoBasico = new Plan("Plano básico de programação", UserType.ASSINANTE, 23.90);	
+		Plan planoBasico = new Plan("Plano básico de programação", Role.ASSINANTE, 23.90);	
 		User ze = new User("Zezin", "ze@ze.com", "senha123");
 		
 		double saldoInicial = 50.0;
@@ -83,8 +83,8 @@ public class UsuarioAssinaturaTeste {
 		// Cenários
 		School escolaOnline = new School("Escola de Programação do Deaque");
 		
-		Plan planoBasico = new Plan("Plano básico de programação", UserType.ASSINANTE, 23.90);
-		Plan planoPremium = new Plan("Plano premium de programação", UserType.ASSINANTE_PREMIUM, 54.90);
+		Plan planoBasico = new Plan("Plano básico de programação", Role.ASSINANTE, 23.90);
+		Plan planoPremium = new Plan("Plano premium de programação", Role.ASSINANTE_PREMIUM, 54.90);
 		
 		Course cursoPython = new Course("Python: do básico ao avançado", "Curso de python...");
 		Course cursoJavascript = new Course("Javascript: do básico ao avançado", "Curso de javascript...");
