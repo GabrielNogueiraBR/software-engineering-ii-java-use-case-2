@@ -14,6 +14,7 @@ import com.example.demo.model.UserType;
 
 public class UsuarioAssinaturaTeste {
 
+	// BDD - Todos
 	@Test
 	public void deveLiberarAcessoAoUsuario() {
 		// Cenários
@@ -60,11 +61,11 @@ public class UsuarioAssinaturaTeste {
 		Plan planoBasico = new Plan("Plano básico de programação", UserType.ASSINANTE, 23.90);	
 		User ze = new User("Zezin", "ze@ze.com", "senha123");
 		
-		ze.adicionarSaldo(50);
-		double saldoAtualUsuario = ze.getSaldo();
+		double saldoInicial = 50.0;
 		String mensagemRetorno = "";
 		
 		// Execução
+		ze.adicionarSaldo(saldoInicial);
 		escolaOnline.adicionarPlano(planoBasico);
 		mensagemRetorno = ze.assinarPlano(planoBasico);
 		
@@ -72,13 +73,14 @@ public class UsuarioAssinaturaTeste {
 		mensagemRetorno = ze.assinarPlano(planoBasico);
 
 		// Resultados
-		assertEquals("Usuário já pagou o boleto desde mês, favor aguardar a proxima parcela.", mensagemRetorno);
-		assertEquals(saldoAtualUsuario - planoBasico.getValor(), ze.getSaldo(),0.00001);
+		assertEquals("Usuário já possui a assinatura da plataforma.", mensagemRetorno);
+		assertEquals(saldoInicial - planoBasico.getValor(), ze.getSaldo(),0.00001);
 	}
 
 	//BDD - Gabriel Nogueira
 	@Test
 	public void deveExibirCursosDaCategoriaDeAssinatura() {
+		// Cenários
 		School escolaOnline = new School("Escola de Programação do Deaque");
 		
 		Plan planoBasico = new Plan("Plano básico de programação", UserType.ASSINANTE, 23.90);
@@ -90,6 +92,7 @@ public class UsuarioAssinaturaTeste {
 		
 		User joao = new User("João Perinpinpin", "jperinpinpin@gpin.com", "senha123");
 		
+		// Execução
 		planoBasico.adicionarCurso(cursoPython);
 		planoBasico.adicionarCurso(cursoJavascript);
 		planoPremium.adicionarCurso(cursoNodeJS);
@@ -100,6 +103,7 @@ public class UsuarioAssinaturaTeste {
 		
 		String[] nomeCursosJoao = {cursoPython.getNome(),cursoJavascript.getNome()};
 		
+		// Resultados
 		assertArrayEquals(nomeCursosJoao, joao.getCatalogoCursos());		
 	}
 }
