@@ -55,17 +55,24 @@ public class User {
     	return this.nivel_acesso;
     }
     
+    public boolean temNivelAcesso(Role role) {
+    	int roleIndex = role.ordinal();
+    	int userRoleIndex = this.nivel_acesso.ordinal();
+    			
+    	return userRoleIndex >= roleIndex;
+    }
+    
+    public boolean temSaldoSuficiente(double price) {
+    	return this.saldo >= price;
+    }
+    
     public String assinarPlano(Plan plano) {
-       	
     	double planPrice = plano.getValor();
     	Role planRole = plano.getRole();
     	
-    	int plaRoleIndex = planRole.ordinal();
-    	int userRoleIndex = this.nivel_acesso.ordinal();
+    	if(this.temNivelAcesso(planRole)) return "Usuário já possui a assinatura da plataforma.";
     	
-    	if(userRoleIndex >= plaRoleIndex) return "Usuário já possui a assinatura da plataforma.";
-    	
-    	if(this.saldo < planPrice) 
+    	if(!this.temSaldoSuficiente(planPrice)) 
     		return "Usuário não tem saldo suficiente para assinatura do plano.";
     	
     	this.removerSaldo(planPrice);
